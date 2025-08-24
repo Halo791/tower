@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import dynamic from 'next/dynamic';
 import {
   SidebarProvider,
   Sidebar,
@@ -35,11 +36,17 @@ import {
   Tooltip,
 } from 'recharts';
 
+const MapView = dynamic(() => import('./map-view'), {
+  ssr: false,
+});
+
+
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 export default function DashboardLayout() {
   const [role, setRole] = React.useState<UserRole>(USER_ROLES.SUPERADMIN);
   const [filteredTowers, setFilteredTowers] = React.useState<Tower[]>(allTowers);
+  const [selectedTower, setSelectedTower] = React.useState<Tower | null>(null);
 
   const districts = React.useMemo(() => [...new Set(allTowers.map((t) => t.district))], []);
   const providers = React.useMemo(() => [...new Set(allTowers.map((t) => t.providerName))], []);
@@ -68,6 +75,7 @@ export default function DashboardLayout() {
         return districtMatch && providerMatch && heightMatch;
       });
       setFilteredTowers(filtered);
+      setSelectedTower(null); // Reset selection on filter change
     },
     [role]
   );
@@ -95,6 +103,10 @@ export default function DashboardLayout() {
   React.useEffect(() => {
     handleFilterChange({ district: 'all', provider: 'all', height: [0] });
   }, [role, handleFilterChange]);
+  
+  const handleSelectTower = React.useCallback((tower: Tower) => {
+    setSelectedTower(tower);
+  }, []);
 
   return (
     <SidebarProvider>
@@ -149,6 +161,17 @@ export default function DashboardLayout() {
               </CardContent>
             </Card>
           </div>
+
+          <Card className="h-[500px]">
+            <CardHeader>
+              <CardTitle>Tower Map</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <MapView towers={filteredTowers} selectedTower={selectedTower} onSelectTower={handleSelectTower} />
+            </CardContent>
+          </Card>
+
+
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
             <Card className="col-span-4">
               <CardHeader>
@@ -189,7 +212,7 @@ export default function DashboardLayout() {
               </CardContent>
             </Card>
           </div>
-          <TowerTable towers={filteredTowers} />
+          <TowerTable towers={filteredTowers} onSelectTower={handleSelectTower} />
         </div>
       </SidebarInset>
     </SidebarProvider>

@@ -22,9 +22,10 @@ import { ScrollArea } from './ui/scroll-area';
 
 interface TowerTableProps {
   towers: Tower[];
+  onSelectTower: (tower: Tower) => void;
 }
 
-export default function TowerTable({ towers }: TowerTableProps) {
+export default function TowerTable({ towers, onSelectTower }: TowerTableProps) {
   const [searchTerm, setSearchTerm] = React.useState('');
 
   const filteredTowers = towers.filter(
@@ -69,7 +70,7 @@ export default function TowerTable({ towers }: TowerTableProps) {
             <TableBody>
               {filteredTowers.length > 0 ? (
                 filteredTowers.map((tower) => (
-                  <TableRow key={tower.id}>
+                  <TableRow key={tower.id} onClick={() => onSelectTower(tower)} className="cursor-pointer">
                     <TableCell className="font-medium">{tower.id}</TableCell>
                     <TableCell>
                       {tower.village}, {tower.district}

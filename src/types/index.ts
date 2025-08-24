@@ -8,6 +8,7 @@ export type Tower = {
   providerName: string;
   ownerName: string;
   ownerPhoneNumber: string;
+  coverageRadius: number;
 };
 
 export type UserRole = "superadmin" | "provider" | "owner";

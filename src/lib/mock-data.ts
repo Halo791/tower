@@ -11,6 +11,7 @@ export const towers: Tower[] = [
     providerName: "Telkomsel",
     ownerName: "Budi Santoso",
     ownerPhoneNumber: "081234567890",
+    coverageRadius: 1500,
   },
   {
     id: "T002",
@@ -22,6 +23,7 @@ export const towers: Tower[] = [
     providerName: "Indosat",
     ownerName: "Siti Aminah",
     ownerPhoneNumber: "081234567891",
+    coverageRadius: 1000,
   },
   {
     id: "T003",
@@ -33,6 +35,7 @@ export const towers: Tower[] = [
     providerName: "XL Axiata",
     ownerName: "PT. Tower Bersama",
     ownerPhoneNumber: "081234567892",
+    coverageRadius: 2000,
   },
   {
     id: "T004",
@@ -44,6 +47,7 @@ export const towers: Tower[] = [
     providerName: "Telkomsel",
     ownerName: "Ahmad Dahlan",
     ownerPhoneNumber: "081234567893",
+    coverageRadius: 800,
   },
   {
     id: "T005",
@@ -55,6 +59,7 @@ export const towers: Tower[] = [
     providerName: "Indosat",
     ownerName: "PT. Tower Bersama",
     ownerPhoneNumber: "081234567894",
+    coverageRadius: 2500,
   },
   {
     id: "T006",
@@ -66,5 +71,6 @@ export const towers: Tower[] = [
     providerName: "XL Axiata",
     ownerName: "Budi Santoso",
     ownerPhoneNumber: "081234567890",
+    coverageRadius: 1200,
   },
 ];
