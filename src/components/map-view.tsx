@@ -4,6 +4,8 @@ import * as React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle, useMap, Tooltip } from 'react-leaflet';
 import type { LatLngExpression } from 'leaflet';
 import { Tower } from '@/types';
+import { Button } from './ui/button';
+import { Navigation } from 'lucide-react';
 
 const MALANG_CENTER: LatLngExpression = [-7.9666, 112.6326];
 
@@ -23,6 +25,12 @@ function MapContent({ towers = [], selectedTower, onSelectTower }: MapViewProps)
     }
   }, [selectedTower, map]);
 
+  const handleDirectionsClick = (e: React.MouseEvent, tower: Tower) => {
+    e.stopPropagation();
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${tower.latitude},${tower.longitude}`;
+    window.open(url, '_blank');
+  };
+
   return (
     <>
       <TileLayer
@@ -40,10 +48,18 @@ function MapContent({ towers = [], selectedTower, onSelectTower }: MapViewProps)
             }}
           >
             <Popup>
-              <b>{tower.id} - {tower.providerName}</b><br />
-              {tower.address}, {tower.village}, {tower.district}<br />
-              Pemilik: {tower.ownerName}<br/>
-              Tinggi: {tower.height}m
+              <div className="space-y-2">
+                <div>
+                    <b>{tower.id} - {tower.providerName}</b><br />
+                    {tower.address}, {tower.village}, {tower.district}<br />
+                    Pemilik: {tower.ownerName}<br/>
+                    Tinggi: {tower.height}m
+                </div>
+                <Button size="sm" className="w-full" onClick={(e) => handleDirectionsClick(e, tower)}>
+                    <Navigation className="mr-2 h-4 w-4" />
+                    Arahkan
+                </Button>
+              </div>
             </Popup>
             <Tooltip>{tower.id}</Tooltip>
           </Marker>
