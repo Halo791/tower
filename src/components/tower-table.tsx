@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import ReactDOMServer from 'react-dom/server';
 import {
   Table,
   TableBody,
@@ -21,9 +20,8 @@ import { Input } from '@/components/ui/input';
 import type { Tower } from '@/types';
 import { ScrollArea } from './ui/scroll-area';
 import { Button } from './ui/button';
-import { Printer } from 'lucide-react';
+import { Eye } from 'lucide-react';
 import { PrintDocument } from './print-document';
-
 
 interface TowerTableProps {
   towers: Tower[];
@@ -33,38 +31,8 @@ interface TowerTableProps {
 export default function TowerTable({ towers = [], onSelectTower }: TowerTableProps) {
   const [searchTerm, setSearchTerm] = React.useState('');
 
-  const handlePrint = (tower: Tower) => {
-    const printWindow = window.open('', '_blank');
-    if (printWindow) {
-      const printContent = ReactDOMServer.renderToString(<PrintDocument tower={tower} />);
-      printWindow.document.write(`
-        <html>
-          <head>
-            <title>Print Tower Document</title>
-            <script src="https://cdn.tailwindcss.com"></script>
-            <style>
-              @page {
-                size: A4;
-                margin: 1cm;
-              }
-              body {
-                font-family: Arial, sans-serif;
-              }
-            </style>
-          </head>
-          <body>
-            ${printContent}
-          </body>
-        </html>
-      `);
-      printWindow.document.close();
-      printWindow.focus();
-      // Use a timeout to ensure content is loaded before printing
-      setTimeout(() => {
-        printWindow.print();
-        printWindow.close();
-      }, 500);
-    }
+  const handlePreview = (towerId: string) => {
+    window.open(`/print/${towerId}`, '_blank');
   };
 
   const filteredTowers = towers.filter(
@@ -82,18 +50,18 @@ export default function TowerTable({ towers = [], onSelectTower }: TowerTablePro
       <Card>
         <CardHeader>
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-              <div>
-                  <CardTitle>Tower List</CardTitle>
-                  <CardDescription>
-                  Showing {filteredTowers.length} of {towers.length} towers.
-                  </CardDescription>
-              </div>
-              <Input
-                  placeholder="Search towers..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="max-w-sm"
-              />
+            <div>
+              <CardTitle>Tower List</CardTitle>
+              <CardDescription>
+                Showing {filteredTowers.length} of {towers.length} towers.
+              </CardDescription>
+            </div>
+            <Input
+              placeholder="Search towers..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="max-w-sm"
+            />
           </div>
         </CardHeader>
         <CardContent>
@@ -113,7 +81,7 @@ export default function TowerTable({ towers = [], onSelectTower }: TowerTablePro
               <TableBody>
                 {filteredTowers.length > 0 ? (
                   filteredTowers.map((tower) => (
-                    <TableRow key={tower.id} >
+                    <TableRow key={tower.id}>
                       <TableCell className="font-medium" onClick={() => onSelectTower(tower)}>{tower.id}</TableCell>
                       <TableCell onClick={() => onSelectTower(tower)}>
                         {tower.address}, {tower.village}, {tower.district}
@@ -122,9 +90,9 @@ export default function TowerTable({ towers = [], onSelectTower }: TowerTablePro
                       <TableCell onClick={() => onSelectTower(tower)}>{tower.ownerName}</TableCell>
                       <TableCell onClick={() => onSelectTower(tower)}>{tower.height}</TableCell>
                       <TableCell onClick={() => onSelectTower(tower)}>{tower.status}</TableCell>
-                       <TableCell className="text-right">
-                        <Button variant="ghost" size="icon" onClick={() => handlePrint(tower)}>
-                          <Printer className="h-4 w-4" />
+                      <TableCell className="text-right">
+                        <Button variant="ghost" size="icon" onClick={() => handlePreview(tower.id)}>
+                          <Eye className="h-4 w-4" />
                         </Button>
                       </TableCell>
                     </TableRow>

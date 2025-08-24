@@ -12,8 +12,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isPrintPage = (children as React.ReactElement)?.props?.childProp?.segment === 'print';
+  
   return (
-    <html lang="en">
+    <html lang="en" className={isPrintPage ? 'print-preview' : ''}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -23,7 +25,7 @@ export default function RootLayout({
           crossOrigin=""/>
       </head>
       <body className="font-body antialiased">
-        {children}
+        {isPrintPage ? <div id="print-container">{children}</div> : children}
         <Toaster />
       </body>
     </html>

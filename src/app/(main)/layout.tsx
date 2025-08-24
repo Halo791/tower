@@ -94,7 +94,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <TowerDataContext.Provider value={contextValue}>
-      <div className="no-print">
+      <div className="h-full">
         <SidebarProvider>
           <Sidebar>
             <SidebarHeader>
