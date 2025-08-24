@@ -28,7 +28,7 @@ interface TowerTableProps {
 export default function TowerTable({ towers, onSelectTower }: TowerTableProps) {
   const [searchTerm, setSearchTerm] = React.useState('');
 
-  const filteredTowers = towers.filter(
+  const filteredTowers = (towers || []).filter(
     (tower) =>
       tower.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
       tower.village.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -44,7 +44,7 @@ export default function TowerTable({ towers, onSelectTower }: TowerTableProps) {
             <div>
                 <CardTitle>Tower List</CardTitle>
                 <CardDescription>
-                Showing {filteredTowers.length} of {towers.length} towers.
+                Showing {filteredTowers.length} of {towers?.length || 0} towers.
                 </CardDescription>
             </div>
             <Input
