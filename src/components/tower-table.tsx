@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import *a React from 'react';
 import {
   Table,
   TableBody,
@@ -22,6 +22,7 @@ import { ScrollArea } from './ui/scroll-area';
 import { Button } from './ui/button';
 import { Printer } from 'lucide-react';
 import { PrintDocument } from './print-document';
+import ReactDOMServer from 'react-dom/server';
 
 interface TowerTableProps {
   towers: Tower[];
@@ -33,11 +34,37 @@ export default function TowerTable({ towers = [], onSelectTower }: TowerTablePro
   const [towerToPrint, setTowerToPrint] = React.useState<Tower | null>(null);
 
   const handlePrint = (tower: Tower) => {
-    setTowerToPrint(tower);
-    setTimeout(() => {
-      window.print();
-      setTowerToPrint(null);
-    }, 100);
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      const printContent = ReactDOMServer.renderToString(<PrintDocument tower={tower} />);
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Print Tower Document</title>
+            <script src="https://cdn.tailwindcss.com"></script>
+            <style>
+              @page {
+                size: A4;
+                margin: 1cm;
+              }
+              body {
+                font-family: Arial, sans-serif;
+              }
+            </style>
+          </head>
+          <body>
+            ${printContent}
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+      printWindow.focus();
+      // Use a timeout to ensure content is loaded before printing
+      setTimeout(() => {
+        printWindow.print();
+        printWindow.close();
+      }, 500);
+    }
   };
 
   const filteredTowers = towers.filter(
@@ -52,10 +79,7 @@ export default function TowerTable({ towers = [], onSelectTower }: TowerTablePro
 
   return (
     <>
-      <div className="print-only">
-        {towerToPrint && <PrintDocument tower={towerToPrint} />}
-      </div>
-      <Card className="no-print">
+      <Card>
         <CardHeader>
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
               <div>
