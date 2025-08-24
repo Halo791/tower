@@ -4,6 +4,7 @@ import * as React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
 import type { LatLngExpression } from 'leaflet';
 import type { Tower } from '@/types';
+import { Skeleton } from './ui/skeleton';
 
 const MALANG_CENTER: LatLngExpression = [-7.9666, 112.6333];
 
@@ -20,6 +21,7 @@ export default function MapComponent({ towers, selectedTower, onSelectTower }: M
       zoom={11}
       scrollWheelZoom={true}
       className="w-full h-full"
+      placeholder={<Skeleton className="h-full w-full" />}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
