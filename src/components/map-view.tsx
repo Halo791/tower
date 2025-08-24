@@ -41,7 +41,7 @@ function MapContent({ towers = [], selectedTower, onSelectTower }: MapViewProps)
           >
             <Popup>
               <b>{tower.id} - {tower.providerName}</b><br />
-              {tower.village}, {tower.district}<br />
+              {tower.address}, {tower.village}, {tower.district}<br />
               Owner: {tower.ownerName}<br/>
               Tinggi: {tower.height}m
             </Popup>
@@ -54,7 +54,7 @@ function MapContent({ towers = [], selectedTower, onSelectTower }: MapViewProps)
               fillColor: selectedTower?.id === tower.id ? 'hsl(var(--primary))' : 'hsl(var(--accent))',
               fillOpacity: 0.2,
             }}
-            radius={tower.coverageRadius}
+            radius={tower.coverageRadius} // Radius in meters
           />
         </React.Fragment>
       ))}
@@ -63,7 +63,7 @@ function MapContent({ towers = [], selectedTower, onSelectTower }: MapViewProps)
 }
 
 
-export default function MapView({ towers, selectedTower, onSelectTower }: MapViewProps) {
+export default function MapView({ towers = [], selectedTower, onSelectTower }: MapViewProps) {
   // This state ensures the component only renders on the client
   const [isClient, setIsClient] = React.useState(false);
 

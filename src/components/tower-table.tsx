@@ -25,16 +25,17 @@ interface TowerTableProps {
   onSelectTower: (tower: Tower) => void;
 }
 
-export default function TowerTable({ towers, onSelectTower }: TowerTableProps) {
+export default function TowerTable({ towers = [], onSelectTower }: TowerTableProps) {
   const [searchTerm, setSearchTerm] = React.useState('');
 
-  const filteredTowers = (towers || []).filter(
+  const filteredTowers = towers.filter(
     (tower) =>
       tower.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      tower.village.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      tower.district.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      tower.providerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      tower.ownerName.toLowerCase().includes(searchTerm.toLowerCase())
+      (tower.village && tower.village.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (tower.district && tower.district.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (tower.providerName && tower.providerName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (tower.ownerName && tower.ownerName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (tower.address && tower.address.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   return (
@@ -44,7 +45,7 @@ export default function TowerTable({ towers, onSelectTower }: TowerTableProps) {
             <div>
                 <CardTitle>Tower List</CardTitle>
                 <CardDescription>
-                Showing {filteredTowers.length} of {towers?.length || 0} towers.
+                Showing {filteredTowers.length} of {towers.length} towers.
                 </CardDescription>
             </div>
             <Input
@@ -65,6 +66,7 @@ export default function TowerTable({ towers, onSelectTower }: TowerTableProps) {
                 <TableHead>Provider</TableHead>
                 <TableHead>Owner</TableHead>
                 <TableHead>Height (m)</TableHead>
+                <TableHead>Status</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -73,16 +75,17 @@ export default function TowerTable({ towers, onSelectTower }: TowerTableProps) {
                   <TableRow key={tower.id} onClick={() => onSelectTower(tower)} className="cursor-pointer">
                     <TableCell className="font-medium">{tower.id}</TableCell>
                     <TableCell>
-                      {tower.village}, {tower.district}
+                      {tower.address}, {tower.village}, {tower.district}
                     </TableCell>
                     <TableCell>{tower.providerName}</TableCell>
                     <TableCell>{tower.ownerName}</TableCell>
                     <TableCell>{tower.height}</TableCell>
+                    <TableCell>{tower.status}</TableCell>
                   </TableRow>
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={5} className="h-24 text-center">
+                  <TableCell colSpan={6} className="h-24 text-center">
                     No results found.
                   </TableCell>
                 </TableRow>
