@@ -21,7 +21,8 @@ import { AppLogo } from '@/components/icons';
 import { towers as allTowers } from '@/lib/mock-data';
 import type { Tower, UserRole } from '@/types';
 import { MOCK_OWNER_NAME, MOCK_PROVIDER_NAME, USER_ROLES } from '@/lib/constants';
-import { LayoutDashboard, Map } from 'lucide-react';
+import { LayoutDashboard, Map, LogOut } from 'lucide-react';
+import { logout } from '@/lib/actions';
 
 import TowerFilters from '@/components/tower-filters';
 import RoleSwitcher from '@/components/role-switcher';
@@ -40,9 +41,9 @@ export const TowerDataContext = React.createContext<TowerDataContextType>({
 });
 
 
-export default function MainLayout({ children }: { children: React.ReactNode }) {
+export default function MainLayout({ children, userRole }: { children: React.ReactNode, userRole: UserRole }) {
   const pathname = usePathname();
-  const [role, setRole] = React.useState<UserRole>(USER_ROLES.SUPERADMIN);
+  const [role, setRole] = React.useState<UserRole>(userRole);
   const [filteredTowers, setFilteredTowers] = React.useState<Tower[]>(allTowers);
   const [selectedTower, setSelectedTower] = React.useState<Tower | null>(null);
 
@@ -127,7 +128,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                 </SidebarMenu>
               <SidebarSeparator />
               <SidebarGroup>
-                <RoleSwitcher role={role} setRole={setRole} />
+                <RoleSwitcher role={role} />
               </SidebarGroup>
               <SidebarSeparator />
               <SidebarGroup>
@@ -139,11 +140,21 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
               </SidebarGroup>
             </SidebarContent>
             <SidebarFooter>
+               <form action={logout}>
+                  <SidebarMenu>
+                      <SidebarMenuItem>
+                          <SidebarMenuButton>
+                              <LogOut />
+                              Logout
+                          </SidebarMenuButton>
+                      </SidebarMenuItem>
+                  </SidebarMenu>
+               </form>
               <p className="text-xs text-muted-foreground p-2">&copy; {new Date().getFullYear()} Malang Tower Management</p>
             </SidebarFooter>
           </Sidebar>
           <SidebarInset>
-            {children}
+            {React.cloneElement(children as React.ReactElement, { userRole: role })}
           </SidebarInset>
         </SidebarProvider>
       </div>
