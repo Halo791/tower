@@ -42,6 +42,7 @@ function MapContent({ towers = [], selectedTower, onSelectTower }: MapViewProps)
             <Popup>
               <b>{tower.id} - {tower.providerName}</b><br />
               {tower.village}, {tower.district}<br />
+              Owner: {tower.ownerName}<br/>
               Tinggi: {tower.height}m
             </Popup>
             <Tooltip>{tower.id}</Tooltip>
