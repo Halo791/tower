@@ -1,6 +1,6 @@
 'use client';
 
-import *a React from 'react';
+import * as React from 'react';
 import {
   Table,
   TableBody,
@@ -31,7 +31,6 @@ interface TowerTableProps {
 
 export default function TowerTable({ towers = [], onSelectTower }: TowerTableProps) {
   const [searchTerm, setSearchTerm] = React.useState('');
-  const [towerToPrint, setTowerToPrint] = React.useState<Tower | null>(null);
 
   const handlePrint = (tower: Tower) => {
     const printWindow = window.open('', '_blank');
