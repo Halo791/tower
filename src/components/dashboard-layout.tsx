@@ -22,7 +22,7 @@ import TowerFilters from './tower-filters';
 import RoleSwitcher from './role-switcher';
 import PredictiveMaintenanceTool from './predictive-maintenance-tool';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { BarChart, PieChart, Tower as TowerIcon } from 'lucide-react';
+import { BarChart, PieChart, TowerControl as TowerIcon } from 'lucide-react';
 import {
   Bar,
   BarChart as RechartsBarChart,
