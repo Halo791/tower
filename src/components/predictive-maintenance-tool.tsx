@@ -1,7 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -44,7 +45,7 @@ function SubmitButton() {
 }
 
 export default function PredictiveMaintenanceTool({ towers }: PredictiveMaintenanceToolProps) {
-  const [state, formAction] = useFormState(getPrediction, initialState);
+  const [state, formAction] = useActionState(getPrediction, initialState);
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -141,11 +142,11 @@ export default function PredictiveMaintenanceTool({ towers }: PredictiveMaintena
                 <AlertDescription className="space-y-2 whitespace-pre-wrap font-mono text-xs">
                   <div>
                     <p className="font-semibold">Predicted Issues:</p>
-                    <p>{state.data.predictedIssues}</p>
+                    <p>{(state.data as any).predictedIssues}</p>
                   </div>
                   <div>
                     <p className="font-semibold">Recommended Actions:</p>
-                    <p>{state.data.recommendedActions}</p>
+                    <p>{(state.data as any).recommendedActions}</p>
                   </div>
                 </AlertDescription>
               </Alert>
