@@ -22,32 +22,32 @@ export function PrintDocument({ tower }: PrintDocumentProps) {
         <table className="w-full text-xs">
           <tbody>
             <tr>
-              <td className="border-r border-gray-400 p-1 w-[25%]">1. ID SITE</td>
-              <td className="p-1" colSpan={2}>: {tower.id_site || tower.id}</td>
+              <td className="border-r border-b border-gray-400 p-1 w-[25%]">1. ID SITE</td>
+              <td className="p-1 border-b border-gray-400" colSpan={2}>: {tower.id_site || tower.id}</td>
             </tr>
             <tr>
-              <td className="border-r border-gray-400 p-1">PEMILIK/PROVIDER</td>
-              <td className="p-1" colSpan={2}>: {tower.providerName}</td>
+              <td className="border-r border-b border-gray-400 p-1">PEMILIK/PROVIDER</td>
+              <td className="p-1 border-b border-gray-400" colSpan={2}>: {tower.providerName}</td>
             </tr>
             <tr>
-              <td className="border-r border-gray-400 p-1">2. ALAMAT</td>
-              <td className="border-r border-gray-400 p-1 w-[45%]">: {tower.address}</td>
-              <td className="p-1 w-[30%]">RT/RW: {tower.rtRw}</td>
+              <td className="border-r border-b border-gray-400 p-1">2. ALAMAT</td>
+              <td className="border-r border-b border-gray-400 p-1 w-[45%]">: {tower.address}</td>
+              <td className="p-1 border-b border-gray-400 w-[30%]">RT/RW: {tower.rtRw}</td>
             </tr>
             <tr>
-              <td className="border-r border-gray-400 p-1">3. DESA/KEL</td>
-              <td className="border-r border-gray-400 p-1">: {tower.village}</td>
-              <td className="p-1">KECAMATAN: {tower.district}</td>
+              <td className="border-r border-b border-gray-400 p-1">3. DESA/KEL</td>
+              <td className="border-r border-b border-gray-400 p-1">: {tower.village}</td>
+              <td className="p-1 border-b border-gray-400">KECAMATAN: {tower.district}</td>
             </tr>
             <tr>
-              <td className="border-r border-gray-400 p-1">4. LATITUDE</td>
-              <td className="border-r border-gray-400 p-1">: {tower.latitude}</td>
-              <td className="p-1">LONGITUDE: {tower.longitude}</td>
+              <td className="border-r border-b border-gray-400 p-1">4. LATITUDE</td>
+              <td className="border-r border-b border-gray-400 p-1">: {tower.latitude}</td>
+              <td className="p-1 border-b border-gray-400">LONGITUDE: {tower.longitude}</td>
             </tr>
              <tr>
-              <td className="border-r border-gray-400 p-1">5. TINGGI TOWER</td>
-              <td className="border-r border-gray-400 p-1">: {tower.height} m</td>
-              <td className="p-1">TELAH AKTIF/OPERASIONAL: {tower.status}</td>
+              <td className="border-r border-b border-gray-400 p-1">5. TINGGI TOWER</td>
+              <td className="border-r border-b border-gray-400 p-1">: {tower.height} m</td>
+              <td className="p-1 border-b border-gray-400">TELAH AKTIF/OPERASIONAL: {tower.status}</td>
             </tr>
             <tr>
               <td className="border-r border-gray-400 p-1">6. BULAN/TAHUN OPERASIONAL</td>
@@ -85,16 +85,16 @@ export function PrintDocument({ tower }: PrintDocumentProps) {
          <table className="w-full text-xs">
           <tbody>
             <tr>
-              <td className="p-1 w-1/3">TANGGAL SURVEY</td>
-              <td className="p-1" colSpan={2}>: {tower.surveyDate || new Date().toISOString().slice(0,10)}</td>
+              <td className="p-1 w-1/3 border-b border-gray-400">TANGGAL SURVEY</td>
+              <td className="p-1 border-b border-gray-400" colSpan={2}>: {tower.surveyDate || new Date().toISOString().slice(0,10)}</td>
             </tr>
              <tr>
                 <td className="bg-gray-200 text-center font-bold p-1 border-y border-black" colSpan={3}>PENUNGGU TOWER</td>
             </tr>
             <tr>
-              <td className="p-1 w-1/3">NAMA</td>
-              <td className="p-1 w-1/3">: {tower.ownerName}</td>
-               <td className="p-1 w-1/3">TELEPON: {tower.ownerPhoneNumber}</td>
+              <td className="p-1 w-1/3 border-b border-gray-400">NAMA</td>
+              <td className="p-1 w-1/3 border-b border-gray-400">: {tower.ownerName}</td>
+               <td className="p-1 w-1/3 border-b border-gray-400">TELEPON: {tower.ownerPhoneNumber}</td>
             </tr>
              <tr>
                 <td className="bg-gray-200 text-center font-bold p-1 border-y border-black" colSpan={3}>PETUGAS SURVEY</td>
