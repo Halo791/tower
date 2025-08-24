@@ -1,39 +1,25 @@
 'use client';
 
 import * as React from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
-import type { Map, LatLngExpression } from 'leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMap } from 'react-leaflet';
+import type { LatLngExpression } from 'leaflet';
 import type { Tower } from '@/types';
-
-interface MapComponentProps {
-  towers: Tower[];
-  selectedTower: Tower | null;
-  onSelectTower: (tower: Tower | null) => void;
-}
 
 const MALANG_CENTER: LatLngExpression = [-7.9666, 112.6333];
 
-export default function MapComponent({ towers, selectedTower, onSelectTower }: MapComponentProps) {
-  const mapRef = React.useRef<Map | null>(null);
+// This child component handles all the dynamic parts of the map.
+// It will re-render when props change, but it won't cause the parent MapContainer to re-initialize.
+function MapUpdater({ towers, selectedTower, onSelectTower }: MapComponentProps) {
+  const map = useMap();
 
   React.useEffect(() => {
-    if (mapRef.current && selectedTower) {
-      mapRef.current.flyTo([selectedTower.latitude, selectedTower.longitude], 15);
+    if (selectedTower) {
+      map.flyTo([selectedTower.latitude, selectedTower.longitude], 15);
     }
-  }, [selectedTower]);
+  }, [selectedTower, map]);
 
   return (
-    <MapContainer
-      center={MALANG_CENTER}
-      zoom={11}
-      scrollWheelZoom={true}
-      className="w-full h-full"
-      ref={mapRef}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+    <>
       {towers.map((tower) => (
         <Marker
           key={tower.id}
@@ -71,6 +57,37 @@ export default function MapComponent({ towers, selectedTower, onSelectTower }: M
           )}
         </Marker>
       ))}
+    </>
+  );
+}
+
+
+interface MapComponentProps {
+  towers: Tower[];
+  selectedTower: Tower | null;
+  onSelectTower: (tower: Tower | null) => void;
+}
+
+export default function MapComponent({ towers, selectedTower, onSelectTower }: MapComponentProps) {
+  return (
+    // MapContainer is rendered only once. It creates the map instance.
+    // Its children can re-render without causing the container to be re-initialized.
+    <MapContainer
+      center={MALANG_CENTER}
+      zoom={11}
+      scrollWheelZoom={true}
+      className="w-full h-full"
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      {/* The MapUpdater component receives the props and handles updates inside the map context. */}
+      <MapUpdater 
+        towers={towers} 
+        selectedTower={selectedTower} 
+        onSelectTower={onSelectTower} 
+      />
     </MapContainer>
   );
 }
