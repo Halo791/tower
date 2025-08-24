@@ -1,21 +1,11 @@
 'use client';
 
 import * as React from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
 import type { LatLngExpression } from 'leaflet';
 import type { Tower } from '@/types';
 
 const MALANG_CENTER: LatLngExpression = [-7.9666, 112.6333];
-
-function MapFlyTo({ tower }: { tower: Tower | null }) {
-  const map = useMap();
-  React.useEffect(() => {
-    if (tower) {
-      map.flyTo([tower.latitude, tower.longitude], 15);
-    }
-  }, [tower, map]);
-  return null;
-}
 
 interface MapComponentProps {
   towers: Tower[];
@@ -24,13 +14,8 @@ interface MapComponentProps {
 }
 
 export default function MapComponent({ towers, selectedTower, onSelectTower }: MapComponentProps) {
-  // Use a key to force a re-render of the map only when the towers data changes.
-  // This can help prevent the "Map container is already initialized" error.
-  const mapKey = React.useMemo(() => towers.map(t => t.id).join('-'), [towers]);
-
   return (
     <MapContainer
-      key={mapKey}
       center={MALANG_CENTER}
       zoom={11}
       scrollWheelZoom={true}
@@ -55,7 +40,7 @@ export default function MapComponent({ towers, selectedTower, onSelectTower }: M
       ))}
 
       {selectedTower && (
-        <Popup position={[selectedTower.latitude, selectedTower.longitude]}>
+        <Popup position={[selectedTower.latitude, selectedTower.longitude]} onClose={() => onSelectTower(null)}>
            <div className="p-1 w-60">
               <h3 className="font-bold text-lg text-primary">{selectedTower.id}</h3>
               <p className="text-sm text-muted-foreground">
@@ -78,8 +63,6 @@ export default function MapComponent({ towers, selectedTower, onSelectTower }: M
             </div>
         </Popup>
       )}
-
-      <MapFlyTo tower={selectedTower} />
     </MapContainer>
   );
 }
