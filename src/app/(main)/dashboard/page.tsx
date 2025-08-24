@@ -1,12 +1,9 @@
 'use client';
+import { useContext } from 'react';
 import { DashboardPageContent } from '@/components/dashboard-layout';
-import { Tower } from '@/types';
+import { TowerDataContext } from '../layout';
 
-interface DashboardPageProps {
-  towers: Tower[];
-  onSelectTower: (tower: Tower | null) => void;
-}
-
-export default function DashboardPage({ towers, onSelectTower }: DashboardPageProps) {
+export default function DashboardPage() {
+  const { towers, onSelectTower } = useContext(TowerDataContext);
   return <DashboardPageContent towers={towers} onSelectTower={onSelectTower} />;
 }

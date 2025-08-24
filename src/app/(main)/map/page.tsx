@@ -1,14 +1,11 @@
 'use client';
 
+import { useContext } from 'react';
 import { MapPageContent } from "@/components/dashboard-layout";
-import { Tower } from "@/types";
+import { TowerDataContext } from '../layout';
 
-interface MapPageProps {
-    towers: Tower[];
-    selectedTower: Tower | null;
-    onSelectTower: (tower: Tower | null) => void;
-}
 
-export default function MapPage({ towers, selectedTower, onSelectTower }: MapPageProps) {
+export default function MapPage() {
+    const { towers, selectedTower, onSelectTower } = useContext(TowerDataContext);
     return <MapPageContent towers={towers} selectedTower={selectedTower} onSelectTower={onSelectTower} />
 }
