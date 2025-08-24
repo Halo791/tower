@@ -104,7 +104,7 @@ export default function DashboardLayout() {
     handleFilterChange({ district: 'all', provider: 'all', height: [0] });
   }, [role, handleFilterChange]);
   
-  const handleSelectTower = React.useCallback((tower: Tower) => {
+  const handleSelectTower = React. useCallback((tower: Tower) => {
     setSelectedTower(tower);
   }, []);
 
