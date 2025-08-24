@@ -76,6 +76,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   // Pass state and handlers to children using React.cloneElement
   const childrenWithProps = React.Children.map(children, child => {
     if (React.isValidElement(child)) {
+      // The child here is the page component. We are adding props to it.
       return React.cloneElement(child, { 
         towers: filteredTowers,
         selectedTower: selectedTower,
