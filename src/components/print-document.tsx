@@ -22,7 +22,7 @@ export function PrintDocument({ tower }: PrintDocumentProps) {
         <table className="w-full text-xs">
           <tbody>
             <tr>
-              <td className="border-r border-gray-400 p-1 w-1/4">1. ID SITE</td>
+              <td className="border-r border-gray-400 p-1 w-[25%]">1. ID SITE</td>
               <td className="p-1" colSpan={2}>: {tower.id_site || tower.id}</td>
             </tr>
             <tr>
@@ -31,8 +31,8 @@ export function PrintDocument({ tower }: PrintDocumentProps) {
             </tr>
             <tr>
               <td className="border-r border-gray-400 p-1">2. ALAMAT</td>
-              <td className="border-r border-gray-400 p-1">: {tower.address}</td>
-              <td className="p-1">RT/RW: {tower.rtRw}</td>
+              <td className="border-r border-gray-400 p-1 w-[45%]">: {tower.address}</td>
+              <td className="p-1 w-[30%]">RT/RW: {tower.rtRw}</td>
             </tr>
             <tr>
               <td className="border-r border-gray-400 p-1">3. DESA/KEL</td>
@@ -52,7 +52,7 @@ export function PrintDocument({ tower }: PrintDocumentProps) {
             <tr>
               <td className="border-r border-gray-400 p-1">6. BULAN/TAHUN OPERASIONAL</td>
               <td className="border-r border-gray-400 p-1">: {tower.operationalDate}</td>
-               <td className="p-1">KETERANGAN: {tower.notes}</td>
+               <td className="p-1">KETERANGAN: {tower.notes || '-'}</td>
             </tr>
           </tbody>
         </table>
@@ -92,17 +92,17 @@ export function PrintDocument({ tower }: PrintDocumentProps) {
                 <td className="bg-gray-200 text-center font-bold p-1 border-y border-black" colSpan={3}>PENUNGGU TOWER</td>
             </tr>
             <tr>
-              <td className="p-1">NAMA</td>
-              <td className="p-1">: {tower.ownerName}</td>
-               <td className="p-1">TELEPON: {tower.ownerPhoneNumber}</td>
+              <td className="p-1 w-1/3">NAMA</td>
+              <td className="p-1 w-1/3">: {tower.ownerName}</td>
+               <td className="p-1 w-1/3">TELEPON: {tower.ownerPhoneNumber}</td>
             </tr>
              <tr>
                 <td className="bg-gray-200 text-center font-bold p-1 border-y border-black" colSpan={3}>PETUGAS SURVEY</td>
             </tr>
             <tr>
-              <td className="p-1">Petugas 1: {tower.petugas_1}</td>
-              <td className="p-1">Petugas 2: {tower.petugas_2}</td>
-              <td className="p-1">Verifikator: {tower.verifikator}</td>
+              <td className="p-1">Petugas 1: {tower.petugas_1 || '-'}</td>
+              <td className="p-1">Petugas 2: {tower.petugas_2 || '-'}</td>
+              <td className="p-1">Verifikator: {tower.verifikator || '-'}</td>
             </tr>
           </tbody>
         </table>
