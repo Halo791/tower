@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import ReactDOMServer from 'react-dom/server';
 import {
   Table,
   TableBody,
@@ -22,7 +23,7 @@ import { ScrollArea } from './ui/scroll-area';
 import { Button } from './ui/button';
 import { Printer } from 'lucide-react';
 import { PrintDocument } from './print-document';
-import ReactDOMServer from 'react-dom/server';
+
 
 interface TowerTableProps {
   towers: Tower[];
