@@ -91,11 +91,11 @@ body {
   body {
     background: white;
   }
-  .no-print {
-    display: none;
+  .no-print, .no-print * {
+    display: none !important;
   }
   .print-only {
-    display: block;
+    display: block !important;
   }
   @page {
     size: A4;

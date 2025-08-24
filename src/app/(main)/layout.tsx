@@ -94,57 +94,59 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <TowerDataContext.Provider value={contextValue}>
-      <SidebarProvider>
-        <Sidebar>
-          <SidebarHeader>
-            <div className="flex items-center gap-2">
-              <AppLogo className="size-6 text-primary" />
-              <h1 className="text-lg font-semibold">Tower Dashboard</h1>
-              <div className="ml-auto">
-                <SidebarTrigger />
+      <div className="no-print">
+        <SidebarProvider>
+          <Sidebar>
+            <SidebarHeader>
+              <div className="flex items-center gap-2">
+                <AppLogo className="size-6 text-primary" />
+                <h1 className="text-lg font-semibold">Tower Dashboard</h1>
+                <div className="ml-auto">
+                  <SidebarTrigger />
+                </div>
               </div>
-            </div>
-          </SidebarHeader>
-          <SidebarContent>
-              <SidebarMenu>
-                  <SidebarMenuItem>
-                      <SidebarMenuButton asChild isActive={pathname.startsWith('/dashboard')}>
-                          <Link href="/dashboard">
-                              <LayoutDashboard />
-                              Dashboard
-                          </Link>
-                      </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                      <SidebarMenuButton asChild isActive={pathname.startsWith('/map')}>
-                          <Link href="/map">
-                              <Map />
-                              Map View
-                          </Link>
-                      </SidebarMenuButton>
-                  </SidebarMenuItem>
-              </SidebarMenu>
-            <SidebarSeparator />
-            <SidebarGroup>
-              <RoleSwitcher role={role} setRole={setRole} />
-            </SidebarGroup>
-            <SidebarSeparator />
-            <SidebarGroup>
-              <TowerFilters districts={districts} providers={providers} onFilterChange={handleFilterChange} role={role} />
-            </SidebarGroup>
-            <SidebarSeparator />
-            <SidebarGroup>
-              <PredictiveMaintenanceTool towers={allTowers} />
-            </SidebarGroup>
-          </SidebarContent>
-          <SidebarFooter>
-            <p className="text-xs text-muted-foreground p-2">&copy; {new Date().getFullYear()} Malang Tower Management</p>
-          </SidebarFooter>
-        </Sidebar>
-        <SidebarInset>
-          {children}
-        </SidebarInset>
-      </SidebarProvider>
+            </SidebarHeader>
+            <SidebarContent>
+                <SidebarMenu>
+                    <SidebarMenuItem>
+                        <SidebarMenuButton asChild isActive={pathname.startsWith('/dashboard')}>
+                            <Link href="/dashboard">
+                                <LayoutDashboard />
+                                Dashboard
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                        <SidebarMenuButton asChild isActive={pathname.startsWith('/map')}>
+                            <Link href="/map">
+                                <Map />
+                                Map View
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                </SidebarMenu>
+              <SidebarSeparator />
+              <SidebarGroup>
+                <RoleSwitcher role={role} setRole={setRole} />
+              </SidebarGroup>
+              <SidebarSeparator />
+              <SidebarGroup>
+                <TowerFilters districts={districts} providers={providers} onFilterChange={handleFilterChange} role={role} />
+              </SidebarGroup>
+              <SidebarSeparator />
+              <SidebarGroup>
+                <PredictiveMaintenanceTool towers={allTowers} />
+              </SidebarGroup>
+            </SidebarContent>
+            <SidebarFooter>
+              <p className="text-xs text-muted-foreground p-2">&copy; {new Date().getFullYear()} Malang Tower Management</p>
+            </SidebarFooter>
+          </Sidebar>
+          <SidebarInset>
+            {children}
+          </SidebarInset>
+        </SidebarProvider>
+      </div>
     </TowerDataContext.Provider>
   );
 }
