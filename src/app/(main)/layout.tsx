@@ -101,7 +101,7 @@ export default function MainLayout({ children, userRole }: { children: React.Rea
             <SidebarHeader>
               <div className="flex items-center gap-2">
                 <AppLogo className="size-6 text-primary" />
-                <h1 className="text-lg font-semibold">Tower Dashboard</h1>
+                <h1 className="text-lg font-semibold">Dasbor Menara</h1>
                 <div className="ml-auto">
                   <SidebarTrigger />
                 </div>
@@ -113,7 +113,7 @@ export default function MainLayout({ children, userRole }: { children: React.Rea
                         <SidebarMenuButton asChild isActive={pathname.startsWith('/dashboard')}>
                             <Link href="/dashboard">
                                 <LayoutDashboard />
-                                Dashboard
+                                Dasbor
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -121,7 +121,7 @@ export default function MainLayout({ children, userRole }: { children: React.Rea
                         <SidebarMenuButton asChild isActive={pathname.startsWith('/map')}>
                             <Link href="/map">
                                 <Map />
-                                Map View
+                                Tampilan Peta
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -145,12 +145,12 @@ export default function MainLayout({ children, userRole }: { children: React.Rea
                       <SidebarMenuItem>
                           <SidebarMenuButton>
                               <LogOut />
-                              Logout
+                              Keluar
                           </SidebarMenuButton>
                       </SidebarMenuItem>
                   </SidebarMenu>
                </form>
-              <p className="text-xs text-muted-foreground p-2">&copy; {new Date().getFullYear()} Malang Tower Management</p>
+              <p className="text-xs text-muted-foreground p-2">&copy; {new Date().getFullYear()} Manajemen Menara Malang</p>
             </SidebarFooter>
           </Sidebar>
           <SidebarInset>

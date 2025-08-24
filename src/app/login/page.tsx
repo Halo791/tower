@@ -22,7 +22,7 @@ function SubmitButton() {
   return (
     <Button type="submit" className="w-full" disabled={pending}>
       {pending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-      Log In
+      Masuk
     </Button>
   );
 }
@@ -38,10 +38,10 @@ export default function LoginPage() {
             <CardHeader className="text-center">
                 <div className="flex items-center justify-center gap-2 mb-4">
                     <AppLogo className="size-8 text-primary" />
-                    <h1 className="text-2xl font-semibold">Tower Dashboard</h1>
+                    <h1 className="text-2xl font-semibold">Dasbor Menara</h1>
                 </div>
-              <CardTitle className="text-2xl">Login</CardTitle>
-              <CardDescription>Enter your email below to login to your account.</CardDescription>
+              <CardTitle className="text-2xl">Masuk</CardTitle>
+              <CardDescription>Masukkan email Anda di bawah ini untuk masuk ke akun Anda.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
@@ -52,7 +52,7 @@ export default function LoginPage() {
                 )}
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Kata Sandi</Label>
                 <Input id="password" name="password" type="password" required />
                  {state?.errors?.password && (
                   <p className="text-sm font-medium text-destructive">{state.errors.password[0]}</p>
@@ -60,7 +60,7 @@ export default function LoginPage() {
               </div>
                {state?.errors?._form && (
                     <Alert variant="destructive">
-                        <AlertTitle>Login Failed</AlertTitle>
+                        <AlertTitle>Gagal Masuk</AlertTitle>
                         <AlertDescription>
                            {state.errors._form[0]}
                         </AlertDescription>

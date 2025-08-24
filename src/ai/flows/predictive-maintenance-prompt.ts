@@ -2,29 +2,28 @@
 'use server';
 
 /**
- * @fileOverview Predictive maintenance AI flow for tower infrastructure.
+ * @fileOverview Alur AI untuk pemeliharaan prediktif infrastruktur menara.
  *
- * This file defines a Genkit flow to perform predictive maintenance on towers,
- * leveraging historical and real-time data.
+ * File ini mendefinisikan alur Genkit untuk melakukan pemeliharaan prediktif pada menara,
+ * dengan memanfaatkan data historis dan real-time.
  *
- * @exports predictiveMaintenance - The main function to trigger the predictive maintenance flow.
- * @exports PredictiveMaintenanceInput - The input type for the predictiveMaintenance function.
- * @exports PredictiveMaintenanceOutput - The output type for the predictiveMaintenance function.
+ * @exports predictiveMaintenance - Fungsi utama untuk memicu alur pemeliharaan prediktif.
+ * @exports PredictiveMaintenanceInput - Tipe input untuk fungsi predictiveMaintenance.
+ * @exports PredictiveMaintenanceOutput - Tipe output untuk fungsi predictiveMaintenance.
  */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const PredictiveMaintenanceInputSchema = z.object({
-  towerId: z.string().describe('The ID of the tower to perform predictive maintenance on.'),
-  historicalData: z.string().describe('Historical data for the specified tower.'),
-  realTimeData: z.string().describe('Real-time data from similar towers.'),
+  towerId: z.string().describe('ID menara yang akan dilakukan pemeliharaan prediktif.'),
+  notes: z.string().describe('Catatan atau data mengenai menara yang akan dianalisis.'),
 });
 export type PredictiveMaintenanceInput = z.infer<typeof PredictiveMaintenanceInputSchema>;
 
 const PredictiveMaintenanceOutputSchema = z.object({
-  predictedIssues: z.string().describe('Predicted maintenance issues for the tower.'),
-  recommendedActions: z.string().describe('Recommended actions to address the predicted issues.'),
+  predictedIssues: z.string().describe('Prediksi masalah pemeliharaan untuk menara.'),
+  recommendedActions: z.string().describe('Rekomendasi tindakan untuk mengatasi masalah yang diprediksi.'),
 });
 export type PredictiveMaintenanceOutput = z.infer<typeof PredictiveMaintenanceOutputSchema>;
 
@@ -36,14 +35,13 @@ const predictiveMaintenancePrompt = ai.definePrompt({
   name: 'predictiveMaintenancePrompt',
   input: {schema: PredictiveMaintenanceInputSchema},
   output: {schema: PredictiveMaintenanceOutputSchema},
-  prompt: `You are an AI assistant specialized in predictive maintenance for tower infrastructure.
+  prompt: `Anda adalah asisten AI yang berspesialisasi dalam pemeliharaan prediktif untuk infrastruktur menara.
 
-  Analyze the provided historical data for tower ID {{{towerId}}} and real-time data from similar towers to predict potential maintenance issues and recommend actions.
+  Analisis data yang diberikan untuk menara dengan ID {{{towerId}}} untuk memprediksi potensi masalah pemeliharaan dan merekomendasikan tindakan.
 
-  Historical Data: {{{historicalData}}}
-  Real-time Data from Similar Towers: {{{realTimeData}}}
+  Data Menara: {{{notes}}}
 
-  Based on this information, what are the predicted maintenance issues and recommended actions?
+  Berdasarkan informasi ini, apa prediksi masalah pemeliharaan dan rekomendasi tindakan yang perlu dilakukan?
   `,
 });
 

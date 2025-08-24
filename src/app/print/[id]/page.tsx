@@ -21,7 +21,7 @@ export default function PrintPage() {
   if (!tower) {
     return (
         <div className="flex h-screen w-screen items-center justify-center">
-            <p>Tower with ID {id} not found.</p>
+            <p>Menara dengan ID {id} tidak ditemukan.</p>
         </div>
     );
   }
@@ -29,10 +29,10 @@ export default function PrintPage() {
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="no-print p-4 bg-white shadow-md flex justify-between items-center">
-        <h1 className="text-lg font-semibold">Print Preview: Tower {tower.id}</h1>
+        <h1 className="text-lg font-semibold">Pratinjau Cetak: Menara {tower.id}</h1>
         <Button onClick={handlePrint}>
             <Printer className="mr-2"/>
-            Print Document
+            Cetak Dokumen
         </Button>
       </div>
       <div className="p-4">

@@ -51,13 +51,13 @@ export default function TowerTable({ towers = [], onSelectTower }: TowerTablePro
         <CardHeader>
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
-              <CardTitle>Tower List</CardTitle>
+              <CardTitle>Daftar Menara</CardTitle>
               <CardDescription>
-                Showing {filteredTowers.length} of {towers.length} towers.
+                Menampilkan {filteredTowers.length} dari {towers.length} menara.
               </CardDescription>
             </div>
             <Input
-              placeholder="Search towers..."
+              placeholder="Cari menara..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="max-w-sm"
@@ -70,28 +70,28 @@ export default function TowerTable({ towers = [], onSelectTower }: TowerTablePro
               <TableHeader>
                 <TableRow>
                   <TableHead>ID</TableHead>
-                  <TableHead>Location</TableHead>
+                  <TableHead>Lokasi</TableHead>
                   <TableHead>Provider</TableHead>
-                  <TableHead>Owner</TableHead>
-                  <TableHead>Height (m)</TableHead>
+                  <TableHead>Pemilik</TableHead>
+                  <TableHead>Tinggi (m)</TableHead>
                   <TableHead>Status</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                  <TableHead className="text-right">Aksi</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filteredTowers.length > 0 ? (
                   filteredTowers.map((tower) => (
-                    <TableRow key={tower.id}>
-                      <TableCell className="font-medium" onClick={() => onSelectTower(tower)}>{tower.id}</TableCell>
-                      <TableCell onClick={() => onSelectTower(tower)}>
+                    <TableRow key={tower.id} className="cursor-pointer" onClick={() => onSelectTower(tower)}>
+                      <TableCell className="font-medium">{tower.id}</TableCell>
+                      <TableCell>
                         {tower.address}, {tower.village}, {tower.district}
                       </TableCell>
-                      <TableCell onClick={() => onSelectTower(tower)}>{tower.providerName}</TableCell>
-                      <TableCell onClick={() => onSelectTower(tower)}>{tower.ownerName}</TableCell>
-                      <TableCell onClick={() => onSelectTower(tower)}>{tower.height}</TableCell>
-                      <TableCell onClick={() => onSelectTower(tower)}>{tower.status}</TableCell>
+                      <TableCell>{tower.providerName}</TableCell>
+                      <TableCell>{tower.ownerName}</TableCell>
+                      <TableCell>{tower.height}</TableCell>
+                      <TableCell>{tower.status}</TableCell>
                       <TableCell className="text-right">
-                        <Button variant="ghost" size="icon" onClick={() => handlePreview(tower.id)}>
+                        <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); handlePreview(tower.id); }}>
                           <Eye className="h-4 w-4" />
                         </Button>
                       </TableCell>
@@ -100,7 +100,7 @@ export default function TowerTable({ towers = [], onSelectTower }: TowerTablePro
                 ) : (
                   <TableRow>
                     <TableCell colSpan={7} className="h-24 text-center">
-                      No results found.
+                      Tidak ada hasil yang ditemukan.
                     </TableCell>
                   </TableRow>
                 )}

@@ -23,9 +23,8 @@ interface PredictiveMaintenanceToolProps {
 }
 
 const formSchema = z.object({
-  towerId: z.string().min(1, 'Please select a tower.'),
-  historicalData: z.string().min(10, 'Please provide more historical data.'),
-  realTimeData: z.string().min(10, 'Please provide more real-time data.'),
+  towerId: z.string().min(1, 'Silakan pilih menara.'),
+  notes: z.string().min(10, 'Harap berikan data analisis yang lebih detail.'),
 });
 
 const initialState = {
@@ -39,7 +38,7 @@ function SubmitButton() {
   return (
     <Button type="submit" disabled={pending} className="w-full">
       {pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Bot className="mr-2 h-4 w-4" />}
-      Get Prediction
+      Dapatkan Prediksi
     </Button>
   );
 }
@@ -52,10 +51,7 @@ export default function PredictiveMaintenanceTool({ towers }: PredictiveMaintena
     resolver: zodResolver(formSchema),
     defaultValues: {
       towerId: '',
-      historicalData:
-        'Last inspection 6 months ago, minor corrosion found on level 3. Average power consumption stable. No downtime reported in the last 2 years.',
-      realTimeData:
-        'Vibration sensors show a 5% increase in oscillations over the last week. Temperature is within normal range. Power draw has intermittent spikes of 2%.',
+      notes: 'Inspeksi terakhir 6 bulan lalu, ditemukan korosi ringan di level 3. Konsumsi daya rata-rata stabil. Tidak ada downtime yang dilaporkan dalam 2 tahun terakhir. Sensor getaran menunjukkan peningkatan osilasi sebesar 5% selama seminggu terakhir.',
     },
   });
 
@@ -63,7 +59,7 @@ export default function PredictiveMaintenanceTool({ towers }: PredictiveMaintena
     if (state?.message && state.message !== 'success') {
        toast({
          variant: 'destructive',
-         title: 'Prediction Error',
+         title: 'Kesalahan Prediksi',
          description: state.message,
        });
     }
@@ -75,11 +71,11 @@ export default function PredictiveMaintenanceTool({ towers }: PredictiveMaintena
         <form action={formAction}>
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm font-medium">Predictive Maintenance AI</CardTitle>
+              <CardTitle className="text-sm font-medium">AI Pemeliharaan Prediktif</CardTitle>
               <Bot className="h-4 w-4 text-muted-foreground" />
             </div>
             <CardDescription className="text-xs">
-              Use AI to predict tower issues.
+              Gunakan AI untuk memprediksi masalah menara.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -88,11 +84,11 @@ export default function PredictiveMaintenanceTool({ towers }: PredictiveMaintena
               name="towerId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Tower</FormLabel>
+                  <FormLabel>Menara</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select a tower" />
+                        <SelectValue placeholder="Pilih menara" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -109,25 +105,12 @@ export default function PredictiveMaintenanceTool({ towers }: PredictiveMaintena
             />
             <FormField
               control={form.control}
-              name="historicalData"
+              name="notes"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Historical Data</FormLabel>
+                  <FormLabel>Data untuk Analisis</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Enter historical data..." {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="realTimeData"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Real-time Data</FormLabel>
-                  <FormControl>
-                    <Textarea placeholder="Enter real-time data..." {...field} />
+                    <Textarea placeholder="Masukkan data untuk dianalisis..." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -138,14 +121,14 @@ export default function PredictiveMaintenanceTool({ towers }: PredictiveMaintena
             <SubmitButton />
             {state?.data && (
               <Alert>
-                <AlertTitle>AI Prediction Result</AlertTitle>
+                <AlertTitle>Hasil Prediksi AI</AlertTitle>
                 <AlertDescription className="space-y-2 whitespace-pre-wrap font-mono text-xs">
                   <div>
-                    <p className="font-semibold">Predicted Issues:</p>
+                    <p className="font-semibold">Prediksi Masalah:</p>
                     <p>{(state.data as any).predictedIssues}</p>
                   </div>
                   <div>
-                    <p className="font-semibold">Recommended Actions:</p>
+                    <p className="font-semibold">Rekomendasi Tindakan:</p>
                     <p>{(state.data as any).recommendedActions}</p>
                   </div>
                 </AlertDescription>

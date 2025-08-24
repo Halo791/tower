@@ -7,21 +7,19 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 const predictiveMaintenanceFormSchema = z.object({
-  towerId: z.string().min(1, "Please select a tower."),
-  historicalData: z.string().min(1, "Historical data is required."),
-  realTimeData: z.string().min(1, "Real-time data is required."),
+  towerId: z.string().min(1, "Silakan pilih menara."),
+  notes: z.string().min(1, "Data analisis diperlukan."),
 });
 
 export async function getPrediction(prevState: any, formData: FormData) {
   const validatedFields = predictiveMaintenanceFormSchema.safeParse({
     towerId: formData.get('towerId'),
-    historicalData: formData.get('historicalData'),
-    realTimeData: formData.get('realTimeData'),
+    notes: formData.get('notes'),
   });
 
   if (!validatedFields.success) {
     return {
-      message: "Invalid form data.",
+      message: "Data form tidak valid.",
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
@@ -31,13 +29,13 @@ export async function getPrediction(prevState: any, formData: FormData) {
     return { message: "success", data: result };
   } catch (error) {
     console.error(error);
-    return { message: "Prediction failed. Please try again." };
+    return { message: "Prediksi gagal. Silakan coba lagi." };
   }
 }
 
 const loginFormSchema = z.object({
-  email: z.string().email({ message: "Please enter a valid email." }),
-  password: z.string().min(1, { message: "Password is required." }),
+  email: z.string().email({ message: "Silakan masukkan email yang valid." }),
+  password: z.string().min(1, { message: "Kata sandi diperlukan." }),
 });
 
 export async function login(prevState: any, formData: FormData) {
@@ -45,7 +43,7 @@ export async function login(prevState: any, formData: FormData) {
 
   if (!validatedFields.success) {
     return {
-      message: 'Invalid form data',
+      message: 'Data form tidak valid',
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
@@ -55,8 +53,8 @@ export async function login(prevState: any, formData: FormData) {
 
   if (!user || user.password !== password) {
     return {
-      message: 'Invalid email or password',
-      errors: { _form: ['Invalid email or password'] },
+      message: 'Email atau kata sandi salah',
+      errors: { _form: ['Email atau kata sandi salah'] },
     };
   }
 

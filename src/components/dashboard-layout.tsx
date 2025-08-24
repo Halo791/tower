@@ -61,22 +61,22 @@ export function DashboardPageContent({ towers, onSelectTower }: PageContentProps
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Towers</CardTitle>
+                <CardTitle className="text-sm font-medium">Total Menara</CardTitle>
                 <TowerIcon className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{totalTowers}</div>
-                <p className="text-xs text-muted-foreground">in Malang City</p>
+                <p className="text-xs text-muted-foreground">di Kota Malang</p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Average Height</CardTitle>
+                <CardTitle className="text-sm font-medium">Tinggi Rata-rata</CardTitle>
                 <TowerIcon className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{averageHeight}m</div>
-                <p className="text-xs text-muted-foreground">across all towers</p>
+                <p className="text-xs text-muted-foreground">di semua menara</p>
               </CardContent>
             </Card>
           </div>
@@ -86,7 +86,7 @@ export function DashboardPageContent({ towers, onSelectTower }: PageContentProps
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <BarChart className="size-5" />
-                  Tower Distribution by District
+                  Distribusi Menara per Kecamatan
                 </CardTitle>
               </CardHeader>
               <CardContent className="h-80">
@@ -104,7 +104,7 @@ export function DashboardPageContent({ towers, onSelectTower }: PageContentProps
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <PieChart className="size-5" />
-                  Towers by Provider
+                  Menara berdasarkan Provider
                 </CardTitle>
               </CardHeader>
               <CardContent className="h-80">
@@ -132,7 +132,7 @@ export function MapPageContent({ towers, selectedTower, onSelectTower }: { tower
         <div className="h-full p-4">
              <Card className="h-full w-full">
                 <CardHeader>
-                <CardTitle>Tower Map</CardTitle>
+                <CardTitle>Peta Menara</CardTitle>
                 </CardHeader>
                 <CardContent className="h-[calc(100%-4rem)]">
                 <MapView towers={towers} selectedTower={selectedTower} onSelectTower={onSelectTower} />

@@ -7,7 +7,6 @@ import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Filter } from 'lucide-react';
 import type { UserRole } from '@/types';
-import { USER_ROLES } from '@/lib/constants';
 
 interface TowerFiltersProps {
   districts: string[];
@@ -21,42 +20,30 @@ export default function TowerFilters({ districts, providers, onFilterChange, rol
   const [provider, setProvider] = React.useState('all');
   const [height, setHeight] = React.useState([0]);
 
-  const isDisabled = role !== USER_ROLES.SUPERADMIN;
-
   React.useEffect(() => {
     onFilterChange({ district, provider, height });
   }, [district, provider, height, onFilterChange]);
-
-  React.useEffect(() => {
-    // Reset filters when role changes and filters become disabled
-    if (isDisabled) {
-      setDistrict('all');
-      setProvider('all');
-      setHeight([0]);
-    }
-  }, [isDisabled]);
-
 
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-sm font-medium">Filters</CardTitle>
+          <CardTitle className="text-sm font-medium">Filter</CardTitle>
           <Filter className="h-4 w-4 text-muted-foreground" />
         </div>
         <CardDescription className="text-xs">
-          Refine towers on the map.
+          Saring menara di dasbor & peta.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="district-filter">District</Label>
-          <Select value={district} onValueChange={setDistrict} disabled={isDisabled}>
+          <Label htmlFor="district-filter">Kecamatan</Label>
+          <Select value={district} onValueChange={setDistrict}>
             <SelectTrigger id="district-filter">
-              <SelectValue placeholder="Select District" />
+              <SelectValue placeholder="Pilih Kecamatan" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Districts</SelectItem>
+              <SelectItem value="all">Semua Kecamatan</SelectItem>
               {districts.map((d) => (
                 <SelectItem key={d} value={d}>
                   {d}
@@ -67,12 +54,12 @@ export default function TowerFilters({ districts, providers, onFilterChange, rol
         </div>
         <div className="space-y-2">
           <Label htmlFor="provider-filter">Provider</Label>
-          <Select value={provider} onValueChange={setProvider} disabled={isDisabled}>
+          <Select value={provider} onValueChange={setProvider}>
             <SelectTrigger id="provider-filter">
-              <SelectValue placeholder="Select Provider" />
+              <SelectValue placeholder="Pilih Provider" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Providers</SelectItem>
+              <SelectItem value="all">Semua Provider</SelectItem>
               {providers.map((p) => (
                 <SelectItem key={p} value={p}>
                   {p}
@@ -82,7 +69,7 @@ export default function TowerFilters({ districts, providers, onFilterChange, rol
           </Select>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="height-filter">Min. Height: {height[0]}m</Label>
+          <Label htmlFor="height-filter">Tinggi Min.: {height[0]}m</Label>
           <Slider
             id="height-filter"
             min={0}
@@ -90,7 +77,6 @@ export default function TowerFilters({ districts, providers, onFilterChange, rol
             step={5}
             value={height}
             onValueChange={setHeight}
-            disabled={isDisabled}
           />
         </div>
       </CardContent>

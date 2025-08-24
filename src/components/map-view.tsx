@@ -42,7 +42,7 @@ function MapContent({ towers = [], selectedTower, onSelectTower }: MapViewProps)
             <Popup>
               <b>{tower.id} - {tower.providerName}</b><br />
               {tower.address}, {tower.village}, {tower.district}<br />
-              Owner: {tower.ownerName}<br/>
+              Pemilik: {tower.ownerName}<br/>
               Tinggi: {tower.height}m
             </Popup>
             <Tooltip>{tower.id}</Tooltip>
@@ -85,7 +85,7 @@ export default function MapView({ towers = [], selectedTower, onSelectTower }: M
         </MapContainer>
       ) : (
         // You can show a loading skeleton or a placeholder here
-        <div>Loading map...</div>
+        <div>Memuat peta...</div>
       )}
     </div>
   );
