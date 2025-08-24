@@ -31,8 +31,8 @@ export default function MapView({ towers, selectedTower, onSelectTower }: MapVie
     }
   }, [selectedTower]);
 
-  const displayMap = React.useMemo(
-    () => (
+  return (
+    <div className="h-full w-full">
       <MapContainer
         center={MALANG_CENTER}
         zoom={11}
@@ -82,9 +82,6 @@ export default function MapView({ towers, selectedTower, onSelectTower }: MapVie
           </Marker>
         ))}
       </MapContainer>
-    ),
-    [towers, selectedTower, onSelectTower]
+    </div>
   );
-
-  return <div className="h-full w-full">{displayMap}</div>;
 }
