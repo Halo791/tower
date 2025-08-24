@@ -14,7 +14,7 @@ interface MapViewProps {
 }
 
 // This component contains all map-rendering logic
-function MapContent({ towers, selectedTower, onSelectTower }: MapViewProps) {
+function MapContent({ towers = [], selectedTower, onSelectTower }: MapViewProps) {
   const map = useMap();
 
   React.useEffect(() => {
